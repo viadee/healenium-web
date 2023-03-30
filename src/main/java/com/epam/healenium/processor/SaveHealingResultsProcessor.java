@@ -2,6 +2,7 @@ package com.epam.healenium.processor;
 
 import com.epam.healenium.model.HealedElement;
 import com.epam.healenium.model.HealingResult;
+import com.epam.healenium.service.CacheService;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebElement;
 
@@ -31,6 +32,9 @@ public class SaveHealingResultsProcessor extends BaseProcessor {
         byte[] screenshot = engine.captureScreen(mainHealedElement);
         healingResult.setScreenshot(screenshot);
         context.getElements().add(mainHealedElement);
+
+        // cache healed value
+        CacheService.add(context.getCurrentUrl(), context.getBy(), mainCandidate.getScored().getValue());
     }
 
 }

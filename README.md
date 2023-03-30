@@ -39,6 +39,7 @@ score-cap = 0.5
 heal-enabled = true
 hlm.server.url = http://localhost:7878
 hlm.imitator.url = http://localhost:8000
+caching = 0
  ```
 > recovery-tries - list of proposed healed locators
 
@@ -50,6 +51,8 @@ Also you can set this value via -D or System properties, for example to turn off
 > hlm.server.url - ip:port or name where hlm-backend instance is installed
 
 > hlm.imitator.url - ip:port or name where imitate instance is installed
+
+> caching - time in seconds how long healed locators should be cached instead of running the heal process again - disabled by default
 
 ### 3. Simply use standard By/@FindBy to locate your elements
 ```

@@ -20,12 +20,16 @@ public class FindElementProcessor extends BaseProcessor {
     @Override
     public void execute() {
         try {
-            WebElement element = driver.findElement(context.getBy());
-            context.getElementIds().add(((RemoteWebElement) element).getId());
-            engine.saveElements(context, Collections.singletonList(element));
-            context.getElements().add(element);
+            find();
         } catch (NoSuchElementException e) {
             context.setNoSuchElementException(e);
         }
+    }
+
+    protected void find() throws NoSuchElementException {
+        WebElement element = driver.findElement(context.getBy());
+        context.getElementIds().add(((RemoteWebElement) element).getId());
+        engine.saveElements(context, Collections.singletonList(element));
+        context.getElements().add(element);
     }
 }

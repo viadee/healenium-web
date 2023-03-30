@@ -27,6 +27,7 @@ import com.epam.healenium.model.Locator;
 import com.epam.healenium.model.RequestDto;
 import com.epam.healenium.model.SelectorDto;
 import com.epam.healenium.model.SessionContext;
+import com.epam.healenium.service.CacheService;
 import com.epam.healenium.service.HealingService;
 import com.epam.healenium.service.NodeService;
 import com.epam.healenium.treecomparing.JsoupHTMLParser;
@@ -67,6 +68,7 @@ public class SelfHealingEngine {
     private final WebDriver webDriver;
     private final double scoreCap;
     private final boolean isProxy;
+    private int caching;
 
     private RestClient client;
     private NodeService nodeService;
@@ -86,6 +88,12 @@ public class SelfHealingEngine {
         this.config = finalizedConfig;
         this.scoreCap = finalizedConfig.getDouble("score-cap");
         this.isProxy = finalizedConfig.getBoolean("proxy");
+
+        if (finalizedConfig.hasPath("caching")) {
+            this.caching = finalizedConfig.getInt("caching");
+        } else this.caching = 0;
+
+        CacheService.enable(this.caching);
     }
 
     /**

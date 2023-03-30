@@ -20,12 +20,16 @@ public class FindChildElementProcessor extends BaseProcessor {
     @Override
     public void execute() {
         try {
-            WebElement element = delegateElement.findElement(context.getBy());
-            context.getElementIds().add(((RemoteWebElement) element).getId());
-            engine.saveElements(context, Collections.singletonList(element));
-            context.getElements().add(element);
+            find();
         } catch (NoSuchElementException e) {
             context.setNoSuchElementException(e);
         }
+    }
+
+    protected void find() {
+        WebElement element = delegateElement.findElement(context.getBy());
+        context.getElementIds().add(((RemoteWebElement) element).getId());
+        engine.saveElements(context, Collections.singletonList(element));
+        context.getElements().add(element);
     }
 }
